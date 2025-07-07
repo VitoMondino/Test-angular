@@ -1,0 +1,145 @@
+<div class="contenedor-listado-usuarios">
+  <div class="encabezado">
+    <h2>Gestión de Usuarios</h2>
+    <button
+      class="boton boton-primario"
+      (click)="mostrarFormulario = true; usuarioSeleccionado = null"
+    >
+      <span class="icono">+</span>
+      Nuevo Usuario
+    </button>
+  </div>
+
+  <!-- Sección de Filtros -->
+  <div class="seccion-filtros">
+    <h4>Filtros de Búsqueda</h4>
+    <form [formGroup]="formularioFiltros" class="formulario-filtros">
+      <div class="grupo-filtro">
+        <label for="busqueda">Buscar por nombre o apellido:</label>
+        <input
+          type="text"
+          id="busqueda"
+          formControlName="busqueda"
+          placeholder="Escriba para buscar..."
+          class="control-formulario"
+        >
+      </div>
+
+      <div class="grupo-filtro">
+        <label for="rol">Filtrar por rol:</label>
+        <select id="rol" formControlName="rol" class="control-formulario">
+          <option value="">Todos los roles</option>
+          <option value="Administrador">Administrador</option>
+          <option value="Usuario">Usuario</option>
+        </select>
+      </div>
+    </form>
+  </div>
+
+  <!-- Mensaje de Error -->
+  <div class="alerta alerta-peligro" *ngIf="error$ | async as error">
+    <strong>¡Error!</strong> {{ error }}
+  </div>
+
+  <!-- Indicador de Carga -->
+  <app-cargando
+    *ngIf="cargando$ | async"
+    mensaje="Cargando usuarios..."
+    [superpuesto]="true">
+  </app-cargando>
+
+  <!-- Tabla de Usuarios -->
+  <div class="contenedor-tabla" *ngIf="!(cargando$ | async)">
+    <div class="tabla-responsive">
+      <table class="tabla-usuarios">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo Electrónico</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios$ | async; trackBy: rastrearPorIdUsuario">
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.apellido }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>
+              <span class="etiqueta-rol" [class]="'rol-' + (usuario.rol || 'ninguno')">
+                {{ usuario.rol || 'Sin rol' }}
+              </span>
+            </td>
+            <td class="acciones">
+              <button
+                class="boton boton-pequeño boton-contorno-primario"
+                (click)="editarUsuario(usuario)"
+                title="Editar usuario"
+              >
+                ✏️ Editar
+              </button>
+              <button
+                class="boton boton-pequeño boton-contorno-peligro"
+                (click)="eliminarUsuario(usuario.id)"
+                title="Eliminar usuario"
+              >
+                🗑️ Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Estado Vacío -->
+    <div class="estado-vacio" *ngIf="(usuarios$ | async)?.length === 0">
+      <div class="icono-vacio">👥</div>
+      <h3>No se encontraron usuarios</h3>
+      <p>No hay usuarios que coincidan con los filtros aplicados.</p>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="contenedor-paginacion" *ngIf="infoPaginacion$ | async as paginacion">
+    <div class="info-paginacion">
+      Mostrando {{ calcularInicio(paginacion) }} -
+      {{ calcularFin(paginacion) }}
+      de {{ paginacion.totalUsuarios }} usuarios
+    </div>
+
+    <div class="controles-paginacion">
+      <button
+        class="boton boton-contorno-secundario"
+        [disabled]="!paginacion.tieneAnterior"
+        (click)="irAPagina(paginacion.paginaActual - 1)"
+      >
+        ← Anterior
+      </button>
+
+      <span class="info-pagina">
+        Página {{ paginacion.paginaActual }} de {{ paginacion.totalPaginas }}
+      </span>
+
+      <button
+        class="boton boton-contorno-secundario"
+        [disabled]="!paginacion.tieneSiguiente"
+        (click)="irAPagina(paginacion.paginaActual + 1)"
+      >
+        Siguiente →
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal del Formulario de Usuario -->
+  <div class="superposicion-modal" *ngIf="mostrarFormulario" (click)="cerrarFormulario()">
+    <div class="contenido-modal" (click)="$event.stopPropagation()">
+      <app-formulario-usuario
+        [usuario]="usuarioSeleccionado"
+        [cargando]="estasCargando"
+        (guardar)="guardarUsuario($event)"
+        (cancelar)="cerrarFormulario()"
+      ></app-formulario-usuario>
+    </div>
+  </div>
+</div>
