@@ -10,8 +10,8 @@ import { ListadoUsuariosComponente } from "./componentes/listado-usuarios/listad
     <div class="contenedor-app">
       <header class="encabezado-app">
         <div class="contenido-encabezado">
-          <h1>🏢 Sistema de Gestión de Usuarios</h1>
-          <p>Administra usuarios de forma eficiente con Angular SSR</p>
+          <h1>Sistema de Gestión de Usuarios</h1>
+          <p>Administracion de perfiles</p>
         </div>
       </header>
 
@@ -20,7 +20,7 @@ import { ListadoUsuariosComponente } from "./componentes/listado-usuarios/listad
       </main>
 
       <footer class="pie-app">
-        <p>&copy; 2024 Sistema de Gestión de Usuarios - Desarrollado con Angular SSR y NgRx</p>
+        <p>&copy; 2025 Vito Mondino</p>
       </footer>
     </div>
   `,

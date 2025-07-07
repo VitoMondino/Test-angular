@@ -18,6 +18,17 @@ export class ServicioUsuario {
     { id: "8", nombre: "Laura", apellido: "Jiménez", email: "laura@ejemplo.com", rol: "Usuario" },
     { id: "9", nombre: "Pedro", apellido: "Ruiz", email: "pedro@ejemplo.com", rol: "Usuario" },
     { id: "10", nombre: "Isabel", apellido: "Moreno", email: "isabel@ejemplo.com", rol: "Administrador" },
+    { id: "11", nombre: "Sofía", apellido: "Gómez", email: "sofia@ejemplo.com", rol: "Usuario" },
+    { id: "12", nombre: "Diego", apellido: "Alonso", email: "diego@ejemplo.com", rol: "Administrador" },
+    { id: "13", nombre: "Valentina", apellido: "Cabrera", email: "valentina@ejemplo.com", rol: "Usuario" },
+    { id: "14", nombre: "Javier", apellido: "Ortega", email: "javier@ejemplo.com", rol: "Usuario" },
+    { id: "15", nombre: "Lucía", apellido: "Castro", email: "lucia@ejemplo.com", rol: "Administrador" },
+    { id: "16", nombre: "Andrés", apellido: "Silva", email: "andres@ejemplo.com", rol: "Usuario" },
+    { id: "17", nombre: "Elena", apellido: "Ramos", email: "elena@ejemplo.com", rol: "Usuario" },
+    { id: "18", nombre: "Francisco", apellido: "Navarro", email: "francisco@ejemplo.com", rol: "Administrador" },
+    { id: "19", nombre: "Natalia", apellido: "Romero", email: "natalia@ejemplo.com", rol: "Usuario" },
+    { id: "20", nombre: "Santiago", apellido: "Vargas", email: "santiago@ejemplo.com", rol: "Usuario" },
+
     // Usuarios adicionales para probar paginación
     ...Array.from({ length: 15 }, (_, i) => ({
       id: `${i + 11}`,
