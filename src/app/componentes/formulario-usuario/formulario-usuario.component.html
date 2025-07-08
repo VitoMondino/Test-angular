@@ -1,0 +1,95 @@
+<div class="contenedor-formulario">
+  <h3>{{ modoEdicion ? 'Editar Usuario' : 'Nuevo Usuario' }}</h3>
+
+  <form [formGroup]="formularioUsuario" (ngSubmit)="alEnviar()">
+    <div class="grupo-formulario">
+      <label for="nombre">Nombre *</label>
+      <input
+        type="text"
+        id="nombre"
+        formControlName="nombre"
+        class="control-formulario"
+        [class.es-invalido]="esCampoInvalido('nombre')"
+        placeholder="Ingrese el nombre"
+      >
+      <div class="mensaje-error" *ngIf="esCampoInvalido('nombre')">
+        <div *ngIf="formularioUsuario.get('nombre')?.errors?.['required']">
+          El nombre es obligatorio
+        </div>
+        <div *ngIf="formularioUsuario.get('nombre')?.errors?.['minlength']">
+          El nombre debe tener al menos 3 caracteres
+        </div>
+      </div>
+    </div>
+
+    <div class="grupo-formulario">
+      <label for="apellido">Apellido *</label>
+      <input
+        type="text"
+        id="apellido"
+        formControlName="apellido"
+        class="control-formulario"
+        [class.es-invalido]="esCampoInvalido('apellido')"
+        placeholder="Ingrese el apellido"
+      >
+      <div class="mensaje-error" *ngIf="esCampoInvalido('apellido')">
+        <div *ngIf="formularioUsuario.get('apellido')?.errors?.['required']">
+          El apellido es obligatorio
+        </div>
+        <div *ngIf="formularioUsuario.get('apellido')?.errors?.['minlength']">
+          El apellido debe tener al menos 3 caracteres
+        </div>
+      </div>
+    </div>
+
+    <div class="grupo-formulario">
+      <label for="email">Correo Electrónico *</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="control-formulario"
+        [class.es-invalido]="esCampoInvalido('email')"
+        placeholder="ejemplo@correo.com"
+      >
+      <div class="mensaje-error" *ngIf="esCampoInvalido('email')">
+        <div *ngIf="formularioUsuario.get('email')?.errors?.['required']">
+          El correo electrónico es obligatorio
+        </div>
+        <div *ngIf="formularioUsuario.get('email')?.errors?.['email']">
+          El formato del correo electrónico no es válido
+        </div>
+      </div>
+    </div>
+
+    <div class="grupo-formulario">
+      <label for="rol">Rol</label>
+      <select
+        id="rol"
+        formControlName="rol"
+        class="control-formulario"
+      >
+        <option value="">Seleccionar rol</option>
+        <option value="Administrador">Administrador</option>
+        <option value="Usuario">Usuario</option>
+      </select>
+    </div>
+
+    <div class="acciones-formulario">
+      <button
+        type="button"
+        class="boton boton-secundario"
+        (click)="alCancelar()"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="boton boton-primario"
+        [disabled]="formularioUsuario.invalid || cargando"
+      >
+        {{ cargando ? 'Guardando...' : (modoEdicion ? 'Actualizar' : 'Crear') }}
+      </button>
+    </div>
+  </form>
+</div>

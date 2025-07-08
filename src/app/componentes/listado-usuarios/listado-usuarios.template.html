@@ -1,27 +1,20 @@
 <div class="contenedor-listado-usuarios">
   <div class="encabezado">
     <h2>Gestión de Usuarios</h2>
-    <button
-      class="boton boton-primario"
-      (click)="mostrarFormulario = true; usuarioSeleccionado = null"
-    >
+    <button class="boton boton-primario" (click)="mostrarFormulario = true; usuarioSeleccionado = null">
       <span class="icono">+</span>
       Nuevo Usuario
     </button>
   </div>
-  <!-- Filtros de Búsqueda -->
+
+  <!-- Sección de Filtros -->
   <div class="seccion-filtros">
     <h4>Filtros de Búsqueda</h4>
     <form [formGroup]="formularioFiltros" class="formulario-filtros">
       <div class="grupo-filtro">
         <label for="busqueda">Buscar por nombre o apellido:</label>
-        <input
-          type="text"
-          id="busqueda"
-          formControlName="busqueda"
-          placeholder="Escriba para buscar..."
-          class="control-formulario"
-        >
+        <input type="text" id="busqueda" formControlName="busqueda" placeholder="Escriba para buscar..."
+          class="control-formulario">
       </div>
 
       <div class="grupo-filtro">
@@ -41,10 +34,7 @@
   </div>
 
   <!-- Indicador de Carga -->
-  <app-cargando
-    *ngIf="cargando$ | async"
-    mensaje="Cargando usuarios..."
-    [superpuesto]="true">
+  <app-cargando *ngIf="cargando$ | async" mensaje="Cargando usuarios..." [superpuesto]="true">
   </app-cargando>
 
   <!-- Tabla de Usuarios -->
@@ -71,19 +61,13 @@
               </span>
             </td>
             <td class="acciones">
-              <button
-                class="boton boton-pequeño boton-contorno-primario"
-                (click)="editarUsuario(usuario)"
-                title="Editar usuario"
-              >
-                Editar
+              <button class="boton boton-pequeño boton-contorno-primario" (click)="editarUsuario(usuario)"
+                title="Editar usuario">
+                ✏️ Editar
               </button>
-              <button
-                class="boton boton-pequeño boton-contorno-peligro"
-                (click)="eliminarUsuario(usuario.id)"
-                title="Eliminar usuario"
-              >
-                Eliminar
+              <button class="boton boton-pequeño boton-contorno-peligro" (click)="eliminarUsuario(usuario.id)"
+                title="Eliminar usuario">
+                🗑️ Eliminar
               </button>
             </td>
           </tr>
@@ -99,7 +83,7 @@
     </div>
   </div>
 
-  <!-- Paginación -->
+  <!-- Seccion para agregar mas paginas -->
   <div class="contenedor-paginacion" *ngIf="infoPaginacion$ | async as paginacion">
     <div class="info-paginacion">
       Mostrando {{ calcularInicio(paginacion) }} -
@@ -108,11 +92,8 @@
     </div>
 
     <div class="controles-paginacion">
-      <button
-        class="boton boton-contorno-secundario"
-        [disabled]="!paginacion.tieneAnterior"
-        (click)="irAPagina(paginacion.paginaActual - 1)"
-      >
+      <button class="boton boton-contorno-secundario" [disabled]="!paginacion.tieneAnterior"
+        (click)="irAPagina(paginacion.paginaActual - 1)">
         ← Anterior
       </button>
 
@@ -120,25 +101,18 @@
         Página {{ paginacion.paginaActual }} de {{ paginacion.totalPaginas }}
       </span>
 
-      <button
-        class="boton boton-contorno-secundario"
-        [disabled]="!paginacion.tieneSiguiente"
-        (click)="irAPagina(paginacion.paginaActual + 1)"
-      >
+      <button class="boton boton-contorno-secundario" [disabled]="!paginacion.tieneSiguiente"
+        (click)="irAPagina(paginacion.paginaActual + 1)">
         Siguiente →
       </button>
     </div>
   </div>
 
-  <!-- Modalo de Formulario de Usuario -->
+  <!-- Modelo de Formulario de Usuario -->
   <div class="superposicion-modal" *ngIf="mostrarFormulario" (click)="cerrarFormulario()">
     <div class="contenido-modal" (click)="$event.stopPropagation()">
-      <app-formulario-usuario
-        [usuario]="usuarioSeleccionado"
-        [cargando]="estasCargando"
-        (guardar)="guardarUsuario($event)"
-        (cancelar)="cerrarFormulario()"
-      ></app-formulario-usuario>
+      <app-formulario-usuario [usuario]="usuarioSeleccionado" [cargando]="estasCargando"
+        (guardar)="guardarUsuario($event)" (cancelar)="cerrarFormulario()"></app-formulario-usuario>
     </div>
   </div>
 </div>
