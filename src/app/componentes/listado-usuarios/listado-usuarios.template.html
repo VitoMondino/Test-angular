@@ -9,8 +9,7 @@
       Nuevo Usuario
     </button>
   </div>
-
-  <!-- Sección de Filtros -->
+  <!-- Filtros de Búsqueda -->
   <div class="seccion-filtros">
     <h4>Filtros de Búsqueda</h4>
     <form [formGroup]="formularioFiltros" class="formulario-filtros">
@@ -131,7 +130,7 @@
     </div>
   </div>
 
-  <!-- Modal del Formulario de Usuario -->
+  <!-- Modalo de Formulario de Usuario -->
   <div class="superposicion-modal" *ngIf="mostrarFormulario" (click)="cerrarFormulario()">
     <div class="contenido-modal" (click)="$event.stopPropagation()">
       <app-formulario-usuario

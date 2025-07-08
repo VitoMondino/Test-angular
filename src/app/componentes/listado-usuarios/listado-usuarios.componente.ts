@@ -118,7 +118,7 @@ import { FormularioUsuarioComponente } from "../formulario-usuario/formulario-us
         </div>
       </div>
 
-      <!-- Paginación -->
+      <!-- Seccion para agregar mas paginas -->
       <div class="contenedor-paginacion" *ngIf="infoPaginacion$ | async as paginacion">
         <div class="info-paginacion">
           Mostrando {{ calcularInicio(paginacion) }} -
@@ -149,7 +149,7 @@ import { FormularioUsuarioComponente } from "../formulario-usuario/formulario-us
         </div>
       </div>
 
-      <!-- Modal del Formulario de Usuario -->
+      <!-- Modelo de Formulario de Usuario -->
       <div class="superposicion-modal" *ngIf="mostrarFormulario" (click)="cerrarFormulario()">
         <div class="contenido-modal" (click)="$event.stopPropagation()">
           <app-formulario-usuario
@@ -518,7 +518,6 @@ export class ListadoUsuariosComponente implements OnInit, OnDestroy {
   private fb: FormBuilder
   private destruir$ = new Subject<void>()
 
-  // Propiedades adicionales
   estasCargando = false
 
   constructor() {
@@ -526,7 +525,8 @@ export class ListadoUsuariosComponente implements OnInit, OnDestroy {
     this.store = inject(Store)
     this.fb = inject(FormBuilder)
 
-    // Inicializar observables con manejo de errores para SSR
+    // Seleccionar los estados del store con manejo de errores
+
     this.usuarios$ = this.store.select(SelectoresUsuario.seleccionarUsuarios).pipe(catchError(() => of([])))
     this.cargando$ = this.store.select(SelectoresUsuario.seleccionarCargando).pipe(catchError(() => of(false)))
     this.error$ = this.store.select(SelectoresUsuario.seleccionarError).pipe(catchError(() => of(null)))
@@ -541,7 +541,7 @@ export class ListadoUsuariosComponente implements OnInit, OnDestroy {
     })
   }
 
-  // Métodos helper para paginación
+  // Métodos "Helper" para paginación
   calcularInicio(paginacion: any): number {
     if (!paginacion) return 0
     return (paginacion.paginaActual - 1) * paginacion.tamañoPagina + 1

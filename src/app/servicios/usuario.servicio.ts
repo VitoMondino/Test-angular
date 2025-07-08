@@ -41,7 +41,7 @@ export class ServicioUsuario {
 
   obtenerUsuarios(pagina = 1, tamañoPagina = 10, filtros?: any): Observable<UsuariosPaginados> {
     return of(null).pipe(
-      delay(1000), // Simular latencia de red
+      delay(1000),// es para la medir y simular la carga de datos
       map(() => {
         let usuariosFiltrados = [...this.usuarios]
 
